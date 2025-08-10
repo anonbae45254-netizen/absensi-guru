@@ -1,59 +1,47 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Absensi Guru</title>
   <style>
-    body { margin:0; padding:20px; font-family:sans-serif; background:#f4f4f4; }
-    .form-container { max-width:500px; margin:0 auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    label { display:block; margin-top:10px; }
-    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:4px; }
-    button { background:#007bff; color:#fff; border:none; cursor:pointer; margin-top:15px; }
-    button:hover { background:#0056b3; }
+    /* Reset default margin & padding */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+    }
+
+    /* Wrapper supaya iframe pas di layar */
+    .iframe-wrapper {
+      width: 100%;
+      height: 100vh; /* penuh 1 layar */
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Agar di HP tampak maksimal */
+    @media (max-width: 768px) {
+      iframe {
+        height: 100vh;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Absensi Guru</h2>
-    <form id="absensiForm">
-      <label>Tanggal</label><input type="date" name="tanggal" required>
-      <label>Nama Guru</label><input type="text" name="nama" placeholder="Nama Lengkap" required>
-      <label>Kehadiran</label>
-      <select name="kehadiran" required>
-        <option value="Hadir">Hadir</option>
-        <option value="Izin">Izin</option>
-        <option value="Sakit">Sakit</option>
-      </select>
-      <label>Jam Datang</label><input type="time" name="jam_datang">
-      <label>Jam Pulang</label><input type="time" name="jam_pulang">
-      <label>Keterangan</label><textarea name="keterangan" rows="3"></textarea>
-      <button type="submit">Kirim</button>
-    </form>
-    <p id="msg" style="display:none; margin-top:10px; color:green;">Data berhasil dikirim!</p>
+  <div class="iframe-wrapper">
+    <!-- Ganti URL di bawah dengan URL Web App Google Apps Script kamu -->
+    <iframe src="https://script.google.com/macros/s/AKfycbzdOK7H9aZs7g6QkHgw7ebSsIR-gvqIfmzmH2EYZa61TIcv1UWCdOTutm6w9TQi_IBa/exec" allowfullscreen></iframe>
   </div>
-
-  <script>
-    document.getElementById('absensiForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      fetch('https://script.google.com/macros/s/AKfycbzdOK7H9aZs7g6QkHgw7ebSsIR-gvqIfmzmH2EYZa61TIcv1UWCdOTutm6w9TQi_IBa/exec', {
-        method: 'POST',
-        body: formData
-      })
-      .then(resp => {
-        if (resp.ok) {
-          document.getElementById('msg').style.display = 'block';
-          this.reset();
-        } else {
-          alert('Gagal mengirim data.');
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Terjadi kesalahan.');
-      });
-    });
-  </script>
 </body>
 </html>
