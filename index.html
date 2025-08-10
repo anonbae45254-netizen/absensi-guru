@@ -1,15 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Embed Google Apps Script</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Absensi Guru</title>
   <style>
-    body { margin: 0; font-family: sans-serif; }
-    iframe { width: 100%; height: 100vh; border: none; }
+    body { margin:0; padding:20px; font-family:sans-serif; background:#f4f4f4; }
+    .form-container { max-width:500px; margin:0 auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+    label { display:block; margin-top:10px; }
+    input, select, textarea, button { width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:4px; }
+    button { background:#007bff; color:#fff; border:none; cursor:pointer; margin-top:15px; }
+    button:hover { background:#0056b3; }
   </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbzdOK7H9aZs7g6QkHgw7ebSsIR-gvqIfmzmH2EYZa61TIcv1UWCdOTutm6w9TQi_IBa/exec"></iframe>
+  <div class="form-container">
+    <h2>Absensi Guru</h2>
+    <form id="absensiForm">
+      <label>Tanggal</label><input type="date" name="tanggal" required>
+      <label>Nama Guru</label><input type="text" name="nama" placeholder="Nama Lengkap" required>
+      <label>Kehadiran</label>
+      <select name="kehadiran" required>
+        <option value="Hadir">Hadir</option>
+        <option value="Izin">Izin</option>
+        <option value="Sakit">Sakit</option>
+      </select>
+      <label>Jam Datang</label><input type="time" name="jam_datang">
+      <label>Jam Pulang</label><input type="time" name="jam_pulang">
+      <label>Keterangan</label><textarea name="keterangan" rows="3"></textarea>
+      <button type="submit">Kirim</button>
+    </form>
+    <p id="msg" style="display:none; margin-top:10px; color:green;">Data berhasil dikirim!</p>
+  </div>
+
+  <script>
+    document.getElementById('absensiForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch('https://script.google.com/macros/s/AKfycbwcJvYOxzplULvkHRsRz_lg1tiPyR_8P_L1-rTHsEvWSoJWSvjuZHhFjL3rW4o4lm0R/exec', {
+        method: 'POST',
+        body: formData
+      })
+      .then(resp => {
+        if (resp.ok) {
+          document.getElementById('msg').style.display = 'block';
+          this.reset();
+        } else {
+          alert('Gagal mengirim data.');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Terjadi kesalahan.');
+      });
+    });
+  </script>
 </body>
 </html>
