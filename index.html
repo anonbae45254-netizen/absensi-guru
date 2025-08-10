@@ -1,73 +1,23 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data dari Google Sheets</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 10px;
-            background: #f5f5f5;
-        }
-        h1 {
-            text-align: center;
-            font-size: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            font-size: 14px;
-            text-align: left;
-        }
-        th {
-            background: #007bff;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplikasi Spreadsheet</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-    <h1>Data Google Sheets</h1>
-    <table id="dataTable">
-        <thead></thead>
-        <tbody></tbody>
-    </table>
-
-    <script>
-        const url = "https://script.google.com/macros/s/AKfycbwcJvYOxzplULvkHRsRz_lg1tiPyR_8P_L1-rTHsEvWSoJWSvjuZHhFjL3rW4o4lm0R/exec";
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                if (!data || data.length === 0) return;
-
-                const tableHead = document.querySelector("#dataTable thead");
-                const tableBody = document.querySelector("#dataTable tbody");
-
-                // Buat header tabel
-                const headers = Object.keys(data[0]);
-                let headRow = "<tr>";
-                headers.forEach(h => headRow += `<th>${h}</th>`);
-                headRow += "</tr>";
-                tableHead.innerHTML = headRow;
-
-                // Isi data tabel
-                data.forEach(row => {
-                    let bodyRow = "<tr>";
-                    headers.forEach(h => bodyRow += `<td>${row[h]}</td>`);
-                    bodyRow += "</tr>";
-                    tableBody.innerHTML += bodyRow;
-                });
-            })
-            .catch(err => console.error(err));
-    </script>
+  <iframe src="https://script.google.com/macros/s/AKfycbzdOK7H9aZs7g6QkHgw7ebSsIR-gvqIfmzmH2EYZa61TIcv1UWCdOTutm6w9TQi_IBa/exec"></iframe>
 </body>
 </html>
